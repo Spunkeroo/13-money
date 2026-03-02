@@ -266,7 +266,7 @@ footer a{color:#22c55e;margin:0 8px;}
 <!-- ===== STOCKS DASHBOARD ===== -->
 <section class="section" id="stocks">
   <h2 class="section-title">Stock Market</h2>
-  <p class="section-sub">Top stocks &amp; ETFs &middot; Prices via Finnhub &middot; Rotates every 10s</p>
+  <p class="section-sub">Top stocks &amp; ETFs &middot; Live prices via Yahoo Finance &middot; Updates every 30s</p>
   <div style="overflow-x:auto;">
   <table class="stock-table">
     <thead>
@@ -589,64 +589,156 @@ async function loadCrypto(){
   }
 }
 
-// ===== STOCKS: FINNHUB — batched rotation =====
-var stockBatches=[
-  ['SPY','QQQ','DIA','AAPL','MSFT','GOOGL'],
-  ['AMZN','NVDA','TSLA','META','JPM','V'],
-  ['BRK.B','UNH','JNJ','WMT','XOM','AMD']
-];
+// ===== STOCKS: Multi-API cascade with CORS proxy fallbacks =====
+// 1. Yahoo Finance via CORS proxy (no key needed, batch all 6 in one request)
+// 2. Yahoo Finance v8/chart via backup CORS proxy (individual, 6 parallel)
+// 3. Finnhub (when user adds free API key from finnhub.io)
+// 4. localStorage cache from previous session
+
+var allStockSyms=['SPY','QQQ','DIA','AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','META','JPM','V','BRK.B','UNH','JNJ','WMT','XOM','AMD'];
 var stockBatchIndex=0;
-var finnhubKey=''; // User adds their key here
+var finnhubKey=''; // Optional: add free key from finnhub.io for fastest updates
 var stockCache={};
+var stockProxyIdx=0;
 
-async function loadStockBatch(){
-  var batch=stockBatches[stockBatchIndex];
-  stockBatchIndex=(stockBatchIndex+1)%stockBatches.length;
-
-  // Try Finnhub first
-  if(finnhubKey){
-    try{
-      var promises=batch.map(function(sym){
-        return fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+finnhubKey)
-          .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-          .then(function(d){
-            if(d.c&&d.c>0){
-              var pct=d.pc>0?((d.c-d.pc)/d.pc*100):0;
-              updStock(sym,d.c,d.d,pct);
-              stockCache[sym]={price:d.c,change:d.d,pct:pct,time:Date.now()};
-            }
-          });
-      });
-      await Promise.all(promises);
-      console.log('Stocks batch '+(stockBatchIndex)+' loaded via Finnhub');
-      var el=document.getElementById('stock-updated');if(el)el.textContent='Last updated: '+timeStamp();
-      return;
-    }catch(e){console.log('Finnhub failed:',e.message);}
-  }
-
-  // Fallback: Twelve Data
+// Load cached stock prices instantly (no "--" on page load)
+(function(){
   try{
-    var syms=batch.join(',');
-    var r=await fetch('https://api.twelvedata.com/price?symbol='+syms+'&apikey=demo');
-    if(r.ok){
+    var c=localStorage.getItem('13money_stocks');
+    if(c){
+      stockCache=JSON.parse(c);
+      for(var sym in stockCache){
+        updStock(sym,stockCache[sym].p,stockCache[sym].c,stockCache[sym].pct);
+      }
+      var el=document.getElementById('stock-updated');
+      if(el)el.textContent='Showing cached prices...';
+    }
+  }catch(e){}
+})();
+
+function yahooBatchUrl(syms){
+  return 'https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.map(function(s){return s.replace('.','-');}).join(',')+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketVolume';
+}
+function yahooChartUrl(sym){
+  return 'https://query1.finance.yahoo.com/v8/finance/chart/'+sym.replace('.','-')+'?interval=1d&range=1d';
+}
+
+var corsProxies=[
+  function(u){return 'https://corsproxy.io/?'+encodeURIComponent(u);},
+  function(u){return 'https://api.allorigins.win/raw?url='+encodeURIComponent(u);},
+  function(u){return 'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u);}
+];
+
+function saveStockCache(){
+  try{localStorage.setItem('13money_stocks',JSON.stringify(stockCache));}catch(e){}
+}
+
+// API 1: Yahoo Finance v7/quote batch (1 request for all symbols in batch)
+async function apiStockYahooBatch(batch){
+  var url=yahooBatchUrl(batch);
+  for(var p=0;p<corsProxies.length;p++){
+    var proxyFn=corsProxies[(stockProxyIdx+p)%corsProxies.length];
+    try{
+      var r=await fetch(proxyFn(url));
+      if(!r.ok)continue;
       var d=await r.json();
-      // Twelve Data returns different format for single vs multiple symbols
-      batch.forEach(function(sym){
-        if(d[sym]&&d[sym].price){
-          var p=parseFloat(d[sym].price);
-          updStock(sym,p,0,0);
-          stockCache[sym]={price:p,change:0,pct:0,time:Date.now()};
+      if(!d.quoteResponse||!d.quoteResponse.result||!d.quoteResponse.result.length)continue;
+      var got=0;
+      d.quoteResponse.result.forEach(function(q){
+        var sym=q.symbol.replace('-','.');
+        if(q.regularMarketPrice){
+          updStock(sym,q.regularMarketPrice,q.regularMarketChange||0,q.regularMarketChangePercent||0);
+          stockCache[sym]={p:q.regularMarketPrice,c:q.regularMarketChange||0,pct:q.regularMarketChangePercent||0};
+          got++;
         }
       });
-      console.log('Stocks batch loaded via Twelve Data');
-      var el=document.getElementById('stock-updated');if(el)el.textContent='Last updated: '+timeStamp();
-    }
-  }catch(e){console.log('Twelve Data failed:',e.message);}
+      if(got>0){
+        stockProxyIdx=(stockProxyIdx+p)%corsProxies.length;
+        return true;
+      }
+    }catch(e){continue;}
+  }
+  return false;
+}
 
-  // Show cached values if available
-  batch.forEach(function(sym){
-    if(stockCache[sym]){updStock(sym,stockCache[sym].price,stockCache[sym].change,stockCache[sym].pct);}
-  });
+// API 2: Yahoo Finance v8/chart individual (6 parallel requests, different proxy)
+async function apiStockYahooChart(batch){
+  for(var p=0;p<corsProxies.length;p++){
+    var proxyFn=corsProxies[(stockProxyIdx+p)%corsProxies.length];
+    try{
+      var results=await Promise.all(batch.map(function(sym){
+        return fetch(proxyFn(yahooChartUrl(sym))).then(function(r){
+          if(!r.ok)throw new Error(r.status);return r.json();
+        }).then(function(d){
+          if(!d.chart||!d.chart.result||!d.chart.result[0])return null;
+          var meta=d.chart.result[0].meta;
+          var price=meta.regularMarketPrice;
+          var prev=meta.previousClose||meta.chartPreviousClose||price;
+          var chg=price-prev;
+          var pct=prev>0?(chg/prev*100):0;
+          return{sym:sym,price:price,change:chg,pct:pct};
+        });
+      }));
+      var got=0;
+      results.forEach(function(r){
+        if(r&&r.price){
+          updStock(r.sym,r.price,r.change,r.pct);
+          stockCache[r.sym]={p:r.price,c:r.change,pct:r.pct};
+          got++;
+        }
+      });
+      if(got>0){stockProxyIdx=(stockProxyIdx+p)%corsProxies.length;return true;}
+    }catch(e){continue;}
+  }
+  return false;
+}
+
+// API 3: Finnhub (when user provides free API key)
+async function apiStockFinnhub(batch){
+  if(!finnhubKey)return false;
+  var got=0;
+  await Promise.all(batch.map(function(sym){
+    return fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+finnhubKey)
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(d){
+        if(d.c&&d.c>0){
+          var pct=d.pc>0?((d.c-d.pc)/d.pc*100):0;
+          updStock(sym,d.c,d.d,pct);
+          stockCache[sym]={p:d.c,c:d.d,pct:pct};
+          got++;
+        }
+      }).catch(function(){});
+  }));
+  return got>0;
+}
+
+// Master stock loader — cascading fallback
+async function loadStockBatch(){
+  var batchSize=6;
+  var start=stockBatchIndex*batchSize;
+  var batch=allStockSyms.slice(start,start+batchSize);
+  stockBatchIndex=(stockBatchIndex+1)%3;
+
+  var loaded=false;
+  // Try Yahoo batch first (1 proxied request for all 6)
+  if(!loaded){try{loaded=await apiStockYahooBatch(batch);}catch(e){}}
+  // Try Yahoo chart individual (6 proxied requests)
+  if(!loaded){try{loaded=await apiStockYahooChart(batch);}catch(e){}}
+  // Try Finnhub
+  if(!loaded){try{loaded=await apiStockFinnhub(batch);}catch(e){}}
+
+  if(loaded){
+    saveStockCache();
+    var el=document.getElementById('stock-updated');
+    if(el)el.textContent='Last updated: '+timeStamp();
+    console.log('Stocks batch '+(stockBatchIndex)+' loaded');
+  }else{
+    // Show cached values
+    batch.forEach(function(sym){
+      if(stockCache[sym])updStock(sym,stockCache[sym].p,stockCache[sym].c,stockCache[sym].pct);
+    });
+    console.log('Stocks: using cached data');
+  }
 }
 
 // ===== METALS: Metals-API (cached 15 min) =====
@@ -725,8 +817,8 @@ loadMetals();
 
 // Crypto: every 10 seconds
 setInterval(loadCrypto,10000);
-// Stocks: rotate batch every 10 seconds
-setInterval(loadStockBatch,10000);
+// Stocks: rotate batch every 30 seconds (each stock updates every 90s)
+setInterval(loadStockBatch,30000);
 </script>
 <script src="https://spunk.codes/cross-promo.js" defer></script>
 </body>
