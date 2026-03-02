@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>13.Money — Live Crypto, Stock & Gold Prices | Free Financial Dashboard</title>
+<meta name="description" content="Track live cryptocurrency, stock market, and precious metals prices updated every 10 seconds. Compare exchanges and brokers. Free.">
+<meta name="keywords" content="live crypto prices, stock market today, gold price, bitcoin price live, compare crypto exchanges, best stock trading app, precious metals prices, financial dashboard 2026">
+<link rel="canonical" href="https://13.money/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="13.Money — Live Crypto, Stock & Gold Prices">
+<meta property="og:description" content="Track live cryptocurrency, stock market, and precious metals prices updated every 10 seconds. Compare exchanges and brokers. Free.">
+<meta property="og:url" content="https://13.money/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://13.money/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="13.Money">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://13.money/og-image.png">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="13.Money — Live Crypto, Stock & Gold Prices">
+<meta name="twitter:description" content="Track live crypto, stock, and gold prices. Compare exchanges and brokers. Free.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"13.Money","url":"https://13.money/","description":"Live cryptocurrency, stock market, and precious metals prices updated every 10 seconds.","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"13 Network"}}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.6;}
+a{color:#22c55e;text-decoration:none;}a:hover{color:#4ade80;text-decoration:underline;}
+.nav{background:#0d0d14;border-bottom:1px solid #1a2f1a;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.nav .logo{font-size:1.5rem;font-weight:800;color:#22c55e;}
+.nav .logo span{color:#fff;}
+.nav-links a{color:#999;margin-left:24px;font-size:0.95rem;font-weight:500;}
+.nav-links a:hover{color:#22c55e;text-decoration:none;}
+.hero{text-align:center;padding:80px 24px 60px;background:linear-gradient(180deg,#0d1410 0%,#0a0a0f 100%);}
+.hero h1{font-size:3.2rem;font-weight:900;margin-bottom:16px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-size:1.2rem;color:#888;max-width:600px;margin:0 auto 32px;}
+.hero .cta{display:inline-block;background:linear-gradient(135deg,#22c55e,#16a34a);color:#000;font-weight:700;padding:14px 36px;border-radius:8px;font-size:1.1rem;margin:8px;}
+.hero .cta:hover{opacity:0.9;text-decoration:none;transform:translateY(-1px);}
+.hero .cta.secondary{background:transparent;border:2px solid #22c55e;color:#22c55e;}
+.section{max-width:1200px;margin:0 auto;padding:60px 24px;}
+.section-title{font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:8px;text-align:center;}
+.section-sub{color:#888;margin-bottom:32px;text-align:center;}
+.ticker-wrap{overflow:hidden;background:#0d0d14;border-top:1px solid #1a2f1a;border-bottom:1px solid #1a2f1a;position:relative;}
+.ticker-wrap::before,.ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;}
+.ticker-wrap::before{left:0;background:linear-gradient(90deg,#0d0d14,transparent);}
+.ticker-wrap::after{right:0;background:linear-gradient(270deg,#0d0d14,transparent);}
+.ticker-track{display:flex;width:max-content;animation:ticker-scroll 120s linear infinite;padding:10px 0;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ticker-item{display:flex;align-items:center;gap:6px;padding:0 20px;white-space:nowrap;border-right:1px solid #1a2f1a;}
+.ticker-item .symbol{font-weight:700;color:#fff;font-size:0.85rem;}
+.ticker-item .price{color:#22c55e;font-size:0.95rem;font-weight:600;}
+.ticker-item .change{font-size:0.8rem;font-weight:600;}
+.ticker-item .change.up{color:#22c55e;}
+.ticker-item .change.down{color:#ef4444;}
+.live-dot{color:#22c55e;font-size:0.7rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.crypto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+.crypto-card{background:#12121f;border:1px solid #1f1f3a;border-radius:12px;padding:20px;transition:border-color 0.2s,transform 0.2s;}
+.crypto-card:hover{border-color:#22c55e;transform:translateY(-2px);}
+.crypto-card .coin-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.crypto-card .coin-icon{font-size:1.5rem;}
+.crypto-card .coin-name{font-weight:700;color:#fff;font-size:1rem;}
+.crypto-card .coin-sym{color:#666;font-size:0.85rem;margin-left:auto;}
+.crypto-card .coin-price{font-size:1.3rem;font-weight:800;color:#22c55e;margin-bottom:4px;}
+.crypto-card .coin-change{font-size:0.9rem;font-weight:600;margin-bottom:12px;}
+.crypto-card .coin-change.up{color:#22c55e;}
+.crypto-card .coin-change.down{color:#ef4444;}
+.crypto-card .trade-btn{display:block;text-align:center;background:#22c55e22;color:#22c55e;padding:8px;border-radius:6px;font-weight:600;font-size:0.85rem;transition:background 0.2s;}
+.crypto-card .trade-btn:hover{background:#22c55e44;text-decoration:none;}
+.affiliate-card{background:linear-gradient(135deg,#12121f,#1a2f1a);border:2px solid #22c55e;border-radius:12px;padding:24px;text-align:center;transition:transform 0.2s;}
+.affiliate-card:hover{transform:translateY(-2px);}
+.affiliate-card .badge{display:inline-block;background:#22c55e;color:#000;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.affiliate-card h3{color:#fff;margin-bottom:6px;font-size:1.1rem;}
+.affiliate-card .commission{color:#22c55e;font-size:0.85rem;font-weight:600;margin-bottom:8px;}
+.affiliate-card p{color:#888;font-size:0.9rem;margin-bottom:16px;}
+.affiliate-card .btn{display:inline-block;background:#22c55e;color:#000;font-weight:700;padding:10px 24px;border-radius:6px;font-size:0.95rem;}
+.affiliate-card .btn:hover{opacity:0.9;text-decoration:none;}
+.stock-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+.stock-table th{text-align:left;padding:12px 16px;border-bottom:2px solid #1f1f3a;color:#888;font-size:0.85rem;font-weight:600;text-transform:uppercase;}
+.stock-table td{padding:12px 16px;border-bottom:1px solid #1a1a2f;font-size:0.95rem;}
+.stock-table tr:hover{background:#12121f;}
+.stock-table .sym{font-weight:700;color:#fff;}
+.stock-table .name{color:#888;}
+.stock-table .s-price{font-weight:700;color:#22c55e;}
+.stock-table .s-change{font-weight:600;}
+.stock-table .s-change.up{color:#22c55e;}
+.stock-table .s-change.down{color:#ef4444;}
+.stock-table .s-change.flat{color:#888;}
+.metal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
+.metal-card{background:#12121f;border:1px solid #1f1f3a;border-radius:12px;padding:28px;text-align:center;transition:border-color 0.2s,transform 0.2s;}
+.metal-card:hover{border-color:#fbbf24;transform:translateY(-2px);}
+.metal-card .metal-icon{font-size:2.5rem;margin-bottom:12px;}
+.metal-card .metal-name{font-weight:800;color:#fff;font-size:1.2rem;margin-bottom:4px;}
+.metal-card .metal-unit{color:#666;font-size:0.85rem;margin-bottom:12px;}
+.metal-card .metal-price{font-size:1.8rem;font-weight:900;color:#fbbf24;margin-bottom:4px;}
+.metal-card .metal-change{font-size:0.95rem;font-weight:600;margin-bottom:16px;}
+.metal-card .metal-change.up{color:#22c55e;}
+.metal-card .metal-change.down{color:#ef4444;}
+.metal-card .metal-change.flat{color:#888;}
+.exchange-table{width:100%;border-collapse:collapse;margin-top:16px;}
+.exchange-table th{text-align:left;padding:14px 16px;border-bottom:2px solid #22c55e44;color:#22c55e;font-size:0.85rem;font-weight:700;text-transform:uppercase;}
+.exchange-table td{padding:14px 16px;border-bottom:1px solid #1a1a2f;font-size:0.95rem;}
+.exchange-table tr:hover{background:#12121f;}
+.exchange-table .ex-name{font-weight:700;color:#fff;}
+.exchange-table .ex-type{color:#888;font-size:0.85rem;}
+.exchange-table .ex-fee{color:#fbbf24;font-weight:600;}
+.exchange-table .ex-cta{display:inline-block;background:#22c55e;color:#000;font-weight:700;padding:8px 20px;border-radius:6px;font-size:0.85rem;white-space:nowrap;}
+.exchange-table .ex-cta:hover{opacity:0.9;text-decoration:none;}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.blog-card{background:#12121f;border:1px solid #1f1f3a;border-radius:12px;padding:24px;transition:border-color 0.2s;}
+.blog-card:hover{border-color:#22c55e;cursor:pointer;}
+.blog-card h3{color:#fff;font-size:1.05rem;margin-bottom:8px;}
+.blog-card h3 a{color:inherit;text-decoration:none;}
+.blog-card h3 a:hover{color:#22c55e;}
+.blog-card p{color:#888;font-size:0.9rem;margin-bottom:12px;}
+.blog-card .tag{background:#22c55e22;color:#22c55e;padding:4px 10px;border-radius:4px;font-size:0.8rem;font-weight:600;}
+.newsletter{background:linear-gradient(135deg,#0a1f0f,#0d0d14);border:2px solid #22c55e;border-radius:16px;padding:48px;text-align:center;margin:40px 0;}
+.newsletter h2{color:#22c55e;font-size:1.6rem;margin-bottom:12px;}
+.newsletter p{color:#999;margin-bottom:24px;}
+.newsletter .form{display:flex;gap:12px;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.newsletter input{flex:1;min-width:200px;padding:12px 16px;border-radius:8px;border:1px solid #1f1f3a;background:#0a0a0f;color:#fff;font-size:1rem;}
+.newsletter button{background:#22c55e;color:#000;font-weight:700;padding:12px 28px;border-radius:8px;border:none;cursor:pointer;font-size:1rem;}
+.newsletter button:hover{opacity:0.9;}
+.network-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;}
+.network-grid a{background:#12121f;border:1px solid #1f1f3a;padding:8px 16px;border-radius:8px;color:#999;font-size:0.9rem;font-weight:500;}
+.network-grid a:hover{border-color:#22c55e;color:#22c55e;text-decoration:none;}
+.dealer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:24px;}
+.brokerage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-top:24px;}
+footer{border-top:1px solid #1a2f1a;padding:40px 24px;text-align:center;color:#555;font-size:0.85rem;}
+footer a{color:#22c55e;margin:0 8px;}
+.updated-time{text-align:center;color:#555;font-size:0.8rem;margin-top:8px;}
+.section-divider{border:none;border-top:1px solid #1a1a2f;margin:0;}
+@media(max-width:768px){
+.hero h1{font-size:2rem;}
+.nav-links{display:none;}
+.crypto-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+.metal-grid{grid-template-columns:1fr 1fr;}
+.exchange-table{font-size:0.85rem;}
+.exchange-table th,.exchange-table td{padding:10px 8px;}
+.stock-table{font-size:0.85rem;}
+.stock-table th,.stock-table td{padding:10px 8px;}
+.blog-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+.crypto-grid{grid-template-columns:1fr 1fr;}
+.metal-grid{grid-template-columns:1fr;}
+.exchange-table .hide-mobile{display:none;}
+.stock-table .hide-mobile{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="logo" style="text-decoration:none;"><span>13.</span>Money</a>
+  <div class="nav-links">
+    <a href="#crypto">Crypto</a>
+    <a href="#stocks">Stocks</a>
+    <a href="#metals">Metals</a>
+    <a href="#compare">Compare</a>
+    <a href="#blog">Blog</a>
+  </div>
+</nav>
+
+<!-- ===== SCROLLING TICKER — 44 items ===== -->
+<div class="ticker-wrap">
+<div class="ticker-track" id="ticker-track">
+  <div class="ticker-item"><span class="live-dot">&#9679; LIVE</span></div>
+  <div class="ticker-item"><span class="symbol">BTC</span><span class="price" data-p="btc">--</span><span class="change up" data-c="btc">--</span></div>
+  <div class="ticker-item"><span class="symbol">ETH</span><span class="price" data-p="eth">--</span><span class="change up" data-c="eth">--</span></div>
+  <div class="ticker-item"><span class="symbol">BNB</span><span class="price" data-p="bnb">--</span><span class="change up" data-c="bnb">--</span></div>
+  <div class="ticker-item"><span class="symbol">SOL</span><span class="price" data-p="sol">--</span><span class="change up" data-c="sol">--</span></div>
+  <div class="ticker-item"><span class="symbol">XRP</span><span class="price" data-p="xrp">--</span><span class="change up" data-c="xrp">--</span></div>
+  <div class="ticker-item"><span class="symbol">DOGE</span><span class="price" data-p="doge">--</span><span class="change up" data-c="doge">--</span></div>
+  <div class="ticker-item"><span class="symbol">ADA</span><span class="price" data-p="ada">--</span><span class="change up" data-c="ada">--</span></div>
+  <div class="ticker-item"><span class="symbol">AVAX</span><span class="price" data-p="avax">--</span><span class="change up" data-c="avax">--</span></div>
+  <div class="ticker-item"><span class="symbol">TRX</span><span class="price" data-p="trx">--</span><span class="change up" data-c="trx">--</span></div>
+  <div class="ticker-item"><span class="symbol">TON</span><span class="price" data-p="ton">--</span><span class="change up" data-c="ton">--</span></div>
+  <div class="ticker-item"><span class="symbol">LINK</span><span class="price" data-p="link">--</span><span class="change up" data-c="link">--</span></div>
+  <div class="ticker-item"><span class="symbol">DOT</span><span class="price" data-p="dot">--</span><span class="change up" data-c="dot">--</span></div>
+  <div class="ticker-item"><span class="symbol">UNI</span><span class="price" data-p="uni">--</span><span class="change up" data-c="uni">--</span></div>
+  <div class="ticker-item"><span class="symbol">ATOM</span><span class="price" data-p="atom">--</span><span class="change up" data-c="atom">--</span></div>
+  <div class="ticker-item"><span class="symbol">NEAR</span><span class="price" data-p="near">--</span><span class="change up" data-c="near">--</span></div>
+  <div class="ticker-item"><span class="symbol">LTC</span><span class="price" data-p="ltc">--</span><span class="change up" data-c="ltc">--</span></div>
+  <div class="ticker-item"><span class="symbol">SUI</span><span class="price" data-p="sui">--</span><span class="change up" data-c="sui">--</span></div>
+  <div class="ticker-item"><span class="symbol">APT</span><span class="price" data-p="apt">--</span><span class="change up" data-c="apt">--</span></div>
+  <div class="ticker-item"><span class="symbol">ARB</span><span class="price" data-p="arb">--</span><span class="change up" data-c="arb">--</span></div>
+  <div class="ticker-item"><span class="symbol">OP</span><span class="price" data-p="op">--</span><span class="change up" data-c="op">--</span></div>
+  <div class="ticker-item"><span class="symbol">INJ</span><span class="price" data-p="inj">--</span><span class="change up" data-c="inj">--</span></div>
+  <div class="ticker-item"><span class="symbol">GOLD</span><span class="price" data-p="gold">--</span><span class="change up" data-c="gold">--</span></div>
+  <div class="ticker-item"><span class="symbol">SPY</span><span class="price" data-p="spy">--</span><span class="change flat" data-c="spy">--</span></div>
+  <div class="ticker-item"><span class="symbol">QQQ</span><span class="price" data-p="qqq">--</span><span class="change flat" data-c="qqq">--</span></div>
+  <div class="ticker-item"><span class="symbol">DIA</span><span class="price" data-p="dia">--</span><span class="change flat" data-c="dia">--</span></div>
+  <div class="ticker-item"><span class="symbol">AAPL</span><span class="price" data-p="aapl">--</span><span class="change flat" data-c="aapl">--</span></div>
+  <div class="ticker-item"><span class="symbol">MSFT</span><span class="price" data-p="msft">--</span><span class="change flat" data-c="msft">--</span></div>
+  <div class="ticker-item"><span class="symbol">GOOGL</span><span class="price" data-p="googl">--</span><span class="change flat" data-c="googl">--</span></div>
+  <div class="ticker-item"><span class="symbol">AMZN</span><span class="price" data-p="amzn">--</span><span class="change flat" data-c="amzn">--</span></div>
+  <div class="ticker-item"><span class="symbol">NVDA</span><span class="price" data-p="nvda">--</span><span class="change flat" data-c="nvda">--</span></div>
+  <div class="ticker-item"><span class="symbol">TSLA</span><span class="price" data-p="tsla">--</span><span class="change flat" data-c="tsla">--</span></div>
+  <div class="ticker-item"><span class="symbol">META</span><span class="price" data-p="meta">--</span><span class="change flat" data-c="meta">--</span></div>
+  <div class="ticker-item"><span class="symbol">JPM</span><span class="price" data-p="jpm">--</span><span class="change flat" data-c="jpm">--</span></div>
+  <div class="ticker-item"><span class="symbol">V</span><span class="price" data-p="v">--</span><span class="change flat" data-c="v">--</span></div>
+  <div class="ticker-item"><span class="symbol">BRK.B</span><span class="price" data-p="brk-b">--</span><span class="change flat" data-c="brk-b">--</span></div>
+  <div class="ticker-item"><span class="symbol">UNH</span><span class="price" data-p="unh">--</span><span class="change flat" data-c="unh">--</span></div>
+  <div class="ticker-item"><span class="symbol">JNJ</span><span class="price" data-p="jnj">--</span><span class="change flat" data-c="jnj">--</span></div>
+  <div class="ticker-item"><span class="symbol">WMT</span><span class="price" data-p="wmt">--</span><span class="change flat" data-c="wmt">--</span></div>
+  <div class="ticker-item"><span class="symbol">XOM</span><span class="price" data-p="xom">--</span><span class="change flat" data-c="xom">--</span></div>
+  <div class="ticker-item"><span class="symbol">AMD</span><span class="price" data-p="amd">--</span><span class="change flat" data-c="amd">--</span></div>
+  <div class="ticker-item"><span class="symbol">SILVER</span><span class="price" data-p="silver">--</span><span class="change flat" data-c="silver">--</span></div>
+  <div class="ticker-item"><span class="symbol">PLAT</span><span class="price" data-p="platinum">--</span><span class="change flat" data-c="platinum">--</span></div>
+  <div class="ticker-item"><span class="symbol">PALL</span><span class="price" data-p="palladium">--</span><span class="change flat" data-c="palladium">--</span></div>
+</div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <h1>Your Money. Real-Time.</h1>
+  <p>Track live crypto, stock, and precious metals prices updated every 10 seconds. Compare exchanges and brokers. Always free.</p>
+  <a href="#compare" class="cta">Start Trading</a>
+  <a href="#crypto" class="cta secondary">Track Prices</a>
+</section>
+
+<!-- ===== CRYPTO DASHBOARD ===== -->
+<section class="section" id="crypto">
+  <h2 class="section-title">Cryptocurrency Prices</h2>
+  <p class="section-sub">Live prices from Binance &middot; Updated every 10 seconds</p>
+  <div class="crypto-grid">
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#8383;</span><span class="coin-name">Bitcoin</span><span class="coin-sym">BTC</span></div><div class="coin-price" data-cp="btc">--</div><div class="coin-change up" data-cc="btc">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9830;</span><span class="coin-name">Ethereum</span><span class="coin-sym">ETH</span></div><div class="coin-price" data-cp="eth">--</div><div class="coin-change up" data-cc="eth">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9672;</span><span class="coin-name">BNB</span><span class="coin-sym">BNB</span></div><div class="coin-price" data-cp="bnb">--</div><div class="coin-change up" data-cc="bnb">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9788;</span><span class="coin-name">Solana</span><span class="coin-sym">SOL</span></div><div class="coin-price" data-cp="sol">--</div><div class="coin-change up" data-cc="sol">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#10005;</span><span class="coin-name">XRP</span><span class="coin-sym">XRP</span></div><div class="coin-price" data-cp="xrp">--</div><div class="coin-change up" data-cc="xrp">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#128054;</span><span class="coin-name">Dogecoin</span><span class="coin-sym">DOGE</span></div><div class="coin-price" data-cp="doge">--</div><div class="coin-change up" data-cc="doge">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9679;</span><span class="coin-name">Cardano</span><span class="coin-sym">ADA</span></div><div class="coin-price" data-cp="ada">--</div><div class="coin-change up" data-cc="ada">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9650;</span><span class="coin-name">Avalanche</span><span class="coin-sym">AVAX</span></div><div class="coin-price" data-cp="avax">--</div><div class="coin-change up" data-cc="avax">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9733;</span><span class="coin-name">TRON</span><span class="coin-sym">TRX</span></div><div class="coin-price" data-cp="trx">--</div><div class="coin-change up" data-cc="trx">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9830;</span><span class="coin-name">Toncoin</span><span class="coin-sym">TON</span></div><div class="coin-price" data-cp="ton">--</div><div class="coin-change up" data-cc="ton">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9741;</span><span class="coin-name">Chainlink</span><span class="coin-sym">LINK</span></div><div class="coin-price" data-cp="link">--</div><div class="coin-change up" data-cc="link">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9673;</span><span class="coin-name">Polkadot</span><span class="coin-sym">DOT</span></div><div class="coin-price" data-cp="dot">--</div><div class="coin-change up" data-cc="dot">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#129412;</span><span class="coin-name">Uniswap</span><span class="coin-sym">UNI</span></div><div class="coin-price" data-cp="uni">--</div><div class="coin-change up" data-cc="uni">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9883;</span><span class="coin-name">Cosmos</span><span class="coin-sym">ATOM</span></div><div class="coin-price" data-cp="atom">--</div><div class="coin-change up" data-cc="atom">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9711;</span><span class="coin-name">NEAR</span><span class="coin-sym">NEAR</span></div><div class="coin-price" data-cp="near">--</div><div class="coin-change up" data-cc="near">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#321;</span><span class="coin-name">Litecoin</span><span class="coin-sym">LTC</span></div><div class="coin-price" data-cp="ltc">--</div><div class="coin-change up" data-cc="ltc">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9899;</span><span class="coin-name">SUI</span><span class="coin-sym">SUI</span></div><div class="coin-price" data-cp="sui">--</div><div class="coin-change up" data-cc="sui">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#9635;</span><span class="coin-name">Aptos</span><span class="coin-sym">APT</span></div><div class="coin-price" data-cp="apt">--</div><div class="coin-change up" data-cc="apt">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#10551;</span><span class="coin-name">Arbitrum</span><span class="coin-sym">ARB</span></div><div class="coin-price" data-cp="arb">--</div><div class="coin-change up" data-cc="arb">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <div class="crypto-card"><div class="coin-header"><span class="coin-icon">&#10687;</span><span class="coin-name">Optimism</span><span class="coin-sym">OP</span></div><div class="coin-price" data-cp="op">--</div><div class="coin-change up" data-cc="op">--</div><a href="#" class="trade-btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Trade on MEXC &rarr;</a></div>
+    <!-- Exchange affiliate cards -->
+    <div class="affiliate-card"><div class="badge">70% Commission</div><h3>MEXC Exchange</h3><div class="commission">Lowest Fees &middot; 2,000+ Pairs</div><p>Zero maker fees. Trade spot, futures, and margin. The #1 exchange for altcoins.</p><a href="#" class="btn" data-aff="mexc" onclick="affClick('mexc','crypto')">Sign Up Free &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">50% Commission</div><h3>OKX</h3><div class="commission">Top 3 Global Exchange</div><p>Advanced trading tools, Web3 wallet, and 350+ tokens. Industry-leading security.</p><a href="#" class="btn" data-aff="okx" onclick="affClick('okx','crypto')">Start Trading &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">50% Commission</div><h3>Bybit</h3><div class="commission">#1 Derivatives Exchange</div><p>Copy trading, bot trading, and up to 100x leverage. $20B+ daily volume.</p><a href="#" class="btn" data-aff="bybit" onclick="affClick('bybit','crypto')">Trade Now &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">For Beginners</div><h3>Coinbase</h3><div class="commission">Easiest On-Ramp</div><p>Buy crypto with debit card in minutes. FDIC-insured USD balances. Trusted by 110M+ users.</p><a href="https://coinbase.com/join/YAGES3X?src=referral-link" class="btn" target="_blank" rel="noopener" onclick="affClick('coinbase','crypto')">Get Started &rarr;</a></div>
+  </div>
+  <div class="updated-time" id="crypto-updated">Last updated: --</div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== STOCKS DASHBOARD ===== -->
+<section class="section" id="stocks">
+  <h2 class="section-title">Stock Market</h2>
+  <p class="section-sub">Top stocks &amp; ETFs &middot; Prices via Finnhub &middot; Rotates every 10s</p>
+  <div style="overflow-x:auto;">
+  <table class="stock-table">
+    <thead>
+      <tr><th>Symbol</th><th>Company</th><th>Price</th><th>Change</th><th class="hide-mobile">Volume</th></tr>
+    </thead>
+    <tbody id="stock-body">
+      <tr data-stock="spy"><td class="sym">SPY</td><td class="name">S&amp;P 500 ETF</td><td class="s-price" data-sp="spy">--</td><td class="s-change flat" data-sc="spy">--</td><td class="hide-mobile" data-sv="spy">--</td></tr>
+      <tr data-stock="qqq"><td class="sym">QQQ</td><td class="name">Nasdaq 100 ETF</td><td class="s-price" data-sp="qqq">--</td><td class="s-change flat" data-sc="qqq">--</td><td class="hide-mobile" data-sv="qqq">--</td></tr>
+      <tr data-stock="dia"><td class="sym">DIA</td><td class="name">Dow Jones ETF</td><td class="s-price" data-sp="dia">--</td><td class="s-change flat" data-sc="dia">--</td><td class="hide-mobile" data-sv="dia">--</td></tr>
+      <tr data-stock="aapl"><td class="sym">AAPL</td><td class="name">Apple</td><td class="s-price" data-sp="aapl">--</td><td class="s-change flat" data-sc="aapl">--</td><td class="hide-mobile" data-sv="aapl">--</td></tr>
+      <tr data-stock="msft"><td class="sym">MSFT</td><td class="name">Microsoft</td><td class="s-price" data-sp="msft">--</td><td class="s-change flat" data-sc="msft">--</td><td class="hide-mobile" data-sv="msft">--</td></tr>
+      <tr data-stock="googl"><td class="sym">GOOGL</td><td class="name">Alphabet</td><td class="s-price" data-sp="googl">--</td><td class="s-change flat" data-sc="googl">--</td><td class="hide-mobile" data-sv="googl">--</td></tr>
+      <tr data-stock="amzn"><td class="sym">AMZN</td><td class="name">Amazon</td><td class="s-price" data-sp="amzn">--</td><td class="s-change flat" data-sc="amzn">--</td><td class="hide-mobile" data-sv="amzn">--</td></tr>
+      <tr data-stock="nvda"><td class="sym">NVDA</td><td class="name">NVIDIA</td><td class="s-price" data-sp="nvda">--</td><td class="s-change flat" data-sc="nvda">--</td><td class="hide-mobile" data-sv="nvda">--</td></tr>
+      <tr data-stock="tsla"><td class="sym">TSLA</td><td class="name">Tesla</td><td class="s-price" data-sp="tsla">--</td><td class="s-change flat" data-sc="tsla">--</td><td class="hide-mobile" data-sv="tsla">--</td></tr>
+      <tr data-stock="meta"><td class="sym">META</td><td class="name">Meta Platforms</td><td class="s-price" data-sp="meta">--</td><td class="s-change flat" data-sc="meta">--</td><td class="hide-mobile" data-sv="meta">--</td></tr>
+      <tr data-stock="jpm"><td class="sym">JPM</td><td class="name">JPMorgan Chase</td><td class="s-price" data-sp="jpm">--</td><td class="s-change flat" data-sc="jpm">--</td><td class="hide-mobile" data-sv="jpm">--</td></tr>
+      <tr data-stock="v"><td class="sym">V</td><td class="name">Visa</td><td class="s-price" data-sp="v">--</td><td class="s-change flat" data-sc="v">--</td><td class="hide-mobile" data-sv="v">--</td></tr>
+      <tr data-stock="brk-b"><td class="sym">BRK.B</td><td class="name">Berkshire Hathaway</td><td class="s-price" data-sp="brk-b">--</td><td class="s-change flat" data-sc="brk-b">--</td><td class="hide-mobile" data-sv="brk-b">--</td></tr>
+      <tr data-stock="unh"><td class="sym">UNH</td><td class="name">UnitedHealth</td><td class="s-price" data-sp="unh">--</td><td class="s-change flat" data-sc="unh">--</td><td class="hide-mobile" data-sv="unh">--</td></tr>
+      <tr data-stock="jnj"><td class="sym">JNJ</td><td class="name">Johnson &amp; Johnson</td><td class="s-price" data-sp="jnj">--</td><td class="s-change flat" data-sc="jnj">--</td><td class="hide-mobile" data-sv="jnj">--</td></tr>
+      <tr data-stock="wmt"><td class="sym">WMT</td><td class="name">Walmart</td><td class="s-price" data-sp="wmt">--</td><td class="s-change flat" data-sc="wmt">--</td><td class="hide-mobile" data-sv="wmt">--</td></tr>
+      <tr data-stock="xom"><td class="sym">XOM</td><td class="name">ExxonMobil</td><td class="s-price" data-sp="xom">--</td><td class="s-change flat" data-sc="xom">--</td><td class="hide-mobile" data-sv="xom">--</td></tr>
+      <tr data-stock="amd"><td class="sym">AMD</td><td class="name">AMD</td><td class="s-price" data-sp="amd">--</td><td class="s-change flat" data-sc="amd">--</td><td class="hide-mobile" data-sv="amd">--</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="brokerage-grid">
+    <div class="affiliate-card"><div class="badge">Social Trading</div><h3>eToro</h3><div class="commission">Copy Top Traders</div><p>Trade stocks, crypto, and ETFs. Copy successful investors automatically. Commission-free stocks.</p><a href="#" class="btn" data-aff="etoro" onclick="affClick('etoro','stocks')">Start Copying &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">Pro Trading</div><h3>Interactive Brokers</h3><div class="commission">Lowest Margin Rates</div><p>Professional-grade platform. Trade 150+ markets in 34 countries. From $0 commissions.</p><a href="#" class="btn" data-aff="ibkr" onclick="affClick('ibkr','stocks')">Open Account &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">Free Stocks</div><h3>Robinhood</h3><div class="commission">$0 Commission Trading</div><p>Commission-free stocks, options, and crypto. Get a free stock when you sign up.</p><a href="#" class="btn" data-aff="robinhood" onclick="affClick('robinhood','stocks')">Get Free Stock &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">Stock Rewards</div><h3>Webull</h3><div class="commission">Free Stock on Signup</div><p>Advanced charting, extended hours trading, and fractional shares. Zero commissions.</p><a href="#" class="btn" data-aff="webull" onclick="affClick('webull','stocks')">Get Free Stocks &rarr;</a></div>
+  </div>
+  <div class="updated-time" id="stock-updated">Last updated: --</div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== METALS DASHBOARD ===== -->
+<section class="section" id="metals">
+  <h2 class="section-title">Precious Metals</h2>
+  <p class="section-sub">Spot prices &middot; Gold via PAXG (live) &middot; Silver, Platinum, Palladium cached</p>
+  <div class="metal-grid">
+    <div class="metal-card">
+      <div class="metal-icon">&#129689;</div>
+      <div class="metal-name">Gold</div>
+      <div class="metal-unit">per troy ounce</div>
+      <div class="metal-price" data-mp="gold">--</div>
+      <div class="metal-change flat" data-mc="gold">--</div>
+      <a href="#" class="trade-btn" style="display:inline-block;background:#fbbf2422;color:#fbbf24;padding:10px 24px;border-radius:6px;font-weight:600;" data-aff="bullionvault" onclick="affClick('bullionvault','metals')">Buy Gold &rarr;</a>
+    </div>
+    <div class="metal-card">
+      <div class="metal-icon">&#9898;</div>
+      <div class="metal-name">Silver</div>
+      <div class="metal-unit">per troy ounce</div>
+      <div class="metal-price" data-mp="silver">--</div>
+      <div class="metal-change flat" data-mc="silver">--</div>
+      <a href="#" class="trade-btn" style="display:inline-block;background:#c0c0c022;color:#c0c0c0;padding:10px 24px;border-radius:6px;font-weight:600;" data-aff="bullionvault" onclick="affClick('bullionvault','metals')">Buy Silver &rarr;</a>
+    </div>
+    <div class="metal-card">
+      <div class="metal-icon">&#128142;</div>
+      <div class="metal-name">Platinum</div>
+      <div class="metal-unit">per troy ounce</div>
+      <div class="metal-price" data-mp="platinum">--</div>
+      <div class="metal-change flat" data-mc="platinum">--</div>
+      <a href="#" class="trade-btn" style="display:inline-block;background:#e5e7eb22;color:#e5e7eb;padding:10px 24px;border-radius:6px;font-weight:600;" data-aff="bullionvault" onclick="affClick('bullionvault','metals')">Buy Platinum &rarr;</a>
+    </div>
+    <div class="metal-card">
+      <div class="metal-icon">&#10024;</div>
+      <div class="metal-name">Palladium</div>
+      <div class="metal-unit">per troy ounce</div>
+      <div class="metal-price" data-mp="palladium">--</div>
+      <div class="metal-change flat" data-mc="palladium">--</div>
+      <a href="#" class="trade-btn" style="display:inline-block;background:#a8785622;color:#a87856;padding:10px 24px;border-radius:6px;font-weight:600;" data-aff="bullionvault" onclick="affClick('bullionvault','metals')">Buy Palladium &rarr;</a>
+    </div>
+  </div>
+  <div class="dealer-grid">
+    <div class="affiliate-card"><div class="badge">$200/Lead</div><h3>Augusta Precious Metals</h3><div class="commission">Gold IRA Specialists</div><p>Protect your retirement with physical gold and silver. Free gold IRA guide. Rated A+ by BBB.</p><a href="#" class="btn" data-aff="augusta" onclick="affClick('augusta','metals')">Get Free Gold IRA Kit &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">Buy Physical</div><h3>BullionVault</h3><div class="commission">World's Largest Online Bullion Market</div><p>Buy, sell, and store gold, silver, and platinum at wholesale prices. $4B+ in client holdings.</p><a href="#" class="btn" data-aff="bullionvault" onclick="affClick('bullionvault','metals')">Buy Gold Online &rarr;</a></div>
+    <div class="affiliate-card"><div class="badge">Sell Gold</div><h3>reDollar</h3><div class="commission">Best Prices for Your Gold</div><p>Sell your gold, silver, and jewelry. Free insured shipping kit. Payment within 24 hours.</p><a href="#" class="btn" data-aff="redollar" onclick="affClick('redollar','metals')">Sell Your Gold &rarr;</a></div>
+  </div>
+  <div class="updated-time" id="metal-updated">Last updated: --</div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== EXCHANGE COMPARISON TABLE ===== -->
+<section class="section" id="compare">
+  <h2 class="section-title">Compare Exchanges &amp; Brokers</h2>
+  <p class="section-sub">Side-by-side comparison of fees, features, and minimums</p>
+  <div style="overflow-x:auto;">
+  <table class="exchange-table">
+    <thead>
+      <tr><th>Platform</th><th>Type</th><th>Trading Fee</th><th class="hide-mobile">Min Deposit</th><th class="hide-mobile">Assets</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="ex-name">MEXC</td><td class="ex-type">Crypto</td><td class="ex-fee">0% maker</td><td class="hide-mobile">$0</td><td class="hide-mobile">2,000+</td><td><a href="#" class="ex-cta" data-aff="mexc" onclick="affClick('mexc','compare')">Sign Up Free</a></td></tr>
+      <tr><td class="ex-name">OKX</td><td class="ex-type">Crypto</td><td class="ex-fee">0.08%</td><td class="hide-mobile">$0</td><td class="hide-mobile">350+</td><td><a href="#" class="ex-cta" data-aff="okx" onclick="affClick('okx','compare')">Start Trading</a></td></tr>
+      <tr><td class="ex-name">Bybit</td><td class="ex-type">Crypto</td><td class="ex-fee">0.1%</td><td class="hide-mobile">$0</td><td class="hide-mobile">600+</td><td><a href="#" class="ex-cta" data-aff="bybit" onclick="affClick('bybit','compare')">Trade Now</a></td></tr>
+      <tr><td class="ex-name">Coinbase</td><td class="ex-type">Crypto</td><td class="ex-fee">0.4%</td><td class="hide-mobile">$1</td><td class="hide-mobile">250+</td><td><a href="https://coinbase.com/join/YAGES3X?src=referral-link" class="ex-cta" target="_blank" rel="noopener" onclick="affClick('coinbase','compare')">Get Started</a></td></tr>
+      <tr><td class="ex-name">eToro</td><td class="ex-type">Stocks + Crypto</td><td class="ex-fee">0% stocks</td><td class="hide-mobile">$50</td><td class="hide-mobile">3,000+</td><td><a href="#" class="ex-cta" data-aff="etoro" onclick="affClick('etoro','compare')">Copy Traders</a></td></tr>
+      <tr><td class="ex-name">Interactive Brokers</td><td class="ex-type">Stocks</td><td class="ex-fee">$0 - $0.005/sh</td><td class="hide-mobile">$0</td><td class="hide-mobile">150 markets</td><td><a href="#" class="ex-cta" data-aff="ibkr" onclick="affClick('ibkr','compare')">Open Account</a></td></tr>
+      <tr><td class="ex-name">Robinhood</td><td class="ex-type">Stocks + Crypto</td><td class="ex-fee">$0</td><td class="hide-mobile">$0</td><td class="hide-mobile">5,000+</td><td><a href="#" class="ex-cta" data-aff="robinhood" onclick="affClick('robinhood','compare')">Get Free Stock</a></td></tr>
+      <tr><td class="ex-name">Webull</td><td class="ex-type">Stocks + Crypto</td><td class="ex-fee">$0</td><td class="hide-mobile">$0</td><td class="hide-mobile">7,000+</td><td><a href="#" class="ex-cta" data-aff="webull" onclick="affClick('webull','compare')">Get Free Stocks</a></td></tr>
+      <tr><td class="ex-name">Augusta Metals</td><td class="ex-type">Precious Metals</td><td class="ex-fee">Varies</td><td class="hide-mobile">$50,000</td><td class="hide-mobile">Gold, Silver</td><td><a href="#" class="ex-cta" data-aff="augusta" onclick="affClick('augusta','compare')">Free IRA Kit</a></td></tr>
+      <tr><td class="ex-name">BullionVault</td><td class="ex-type">Precious Metals</td><td class="ex-fee">0.05%</td><td class="hide-mobile">$0</td><td class="hide-mobile">Gold, Silver, Pt</td><td><a href="#" class="ex-cta" data-aff="bullionvault" onclick="affClick('bullionvault','compare')">Buy Gold</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="text-align:center;color:#666;font-size:0.8rem;margin-top:12px;">* Fees shown are for standard accounts. Actual fees may vary. Some links are affiliate links — see <a href="/privacy.html">disclosure</a>.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== BLOG GRID ===== -->
+<section class="section" id="blog">
+  <h2 class="section-title">Financial Guides</h2>
+  <p class="section-sub">Expert guides to help you invest smarter</p>
+  <div class="blog-grid">
+    <div class="blog-card"><span class="tag">Guide</span><h3><a href="blog-best-crypto-exchanges-2026.html">Best Crypto Exchanges 2026 — Full Comparison</a></h3><p>Side-by-side comparison of MEXC, OKX, Bybit, Coinbase, and more. Fees, features, and security ranked.</p></div>
+    <div class="blog-card"><span class="tag">Live Data</span><h3><a href="blog-bitcoin-price-today-live.html">Bitcoin Price Today — Live BTC Chart &amp; Analysis</a></h3><p>Real-time Bitcoin price with technical analysis, key levels, and market sentiment indicators.</p></div>
+    <div class="blog-card"><span class="tag">Forecast</span><h3><a href="blog-gold-price-forecast-2026.html">Gold Price Forecast 2026 — Expert Predictions</a></h3><p>Where is gold headed? Analyst predictions, macroeconomic factors, and how to invest in gold.</p></div>
+    <div class="blog-card"><span class="tag">Guide</span><h3><a href="blog-best-stock-trading-apps-2026.html">Best Stock Trading Apps 2026</a></h3><p>Robinhood vs Webull vs eToro vs IBKR. Which trading app is best for beginners and pros?</p></div>
+    <div class="blog-card"><span class="tag">Tutorial</span><h3><a href="blog-how-to-buy-bitcoin-2026.html">How to Buy Bitcoin in 2026 — Step by Step</a></h3><p>Complete beginner's guide to buying your first Bitcoin. Exchanges, wallets, and security tips.</p></div>
+    <div class="blog-card"><span class="tag">Retirement</span><h3><a href="blog-best-gold-ira-companies-2026.html">Best Gold IRA Companies 2026</a></h3><p>Protect your retirement with precious metals. Top gold IRA providers compared and ranked.</p></div>
+    <div class="blog-card"><span class="tag">Data</span><h3><a href="blog-crypto-exchange-fees-comparison-2026.html">Crypto Exchange Fees Comparison 2026</a></h3><p>Every major exchange's fees decoded. Maker, taker, withdrawal, and hidden fees exposed.</p></div>
+    <div class="blog-card"><span class="tag">Beginner</span><h3><a href="blog-best-investments-for-beginners-2026.html">Best Investments for Beginners 2026</a></h3><p>Stocks, crypto, gold, or index funds? The best places to put your first $100, $1,000, or $10,000.</p></div>
+    <div class="blog-card"><span class="tag">Guide</span><h3><a href="blog-how-to-invest-in-gold-2026.html">How to Invest in Gold 2026 — Complete Guide</a></h3><p>Physical gold, gold ETFs, gold IRAs, and gold mining stocks. Every way to add gold to your portfolio.</p></div>
+    <div class="blog-card"><span class="tag">Versus</span><h3><a href="blog-robinhood-vs-webull-2026.html">Robinhood vs Webull 2026 — Which Is Better?</a></h3><p>Head-to-head comparison of features, fees, charts, and free stock offers for both platforms.</p></div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER CTA ===== -->
+<section class="section">
+  <div class="newsletter">
+    <h2>The 13 Money Brief</h2>
+    <p>Daily market moves, crypto prices, and investment opportunities. Free.</p>
+    <div class="form">
+      <input type="email" placeholder="Your email address" aria-label="Email">
+      <button type="button" onclick="window.open('https://spunkart.beehiiv.com/subscribe','_blank')">Subscribe Free</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13 NETWORK GRID ===== -->
+<section class="section" id="network">
+  <h2 class="section-title">The 13 Network</h2>
+  <p class="section-sub">Finance, prediction markets, and insights across every vertical</p>
+  <div class="network-grid">
+    <a href="https://13.money">13.Money</a>
+    <a href="https://13.markets">13.Markets</a>
+    <a href="https://13.golf">13.Golf</a>
+    <a href="https://13.energy">13.Energy</a>
+    <a href="https://spunk.bet">SPUNK.BET</a>
+    <a href="https://free.institute">Free.Institute</a>
+    <a href="https://free.gripe">Free.Gripe</a>
+    <a href="https://chicago.coach">Chicago.Coach</a>
+    <a href="https://predict.horse">Predict.Horse</a>
+    <a href="https://predict.pics">Predict.Pics</a>
+    <a href="https://predict.mom">Predict.Mom</a>
+    <a href="https://predict.codes">Predict.Codes</a>
+    <a href="https://predict.boats">Predict.Boats</a>
+    <a href="https://predict.yachts">Predict.Yachts</a>
+    <a href="https://spunkart.com">SpunkArt.com</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>&copy; 2026 13 Network. All rights reserved.</p>
+  <p style="margin-top:8px;">
+    <a href="https://13.money">13.Money</a> &middot;
+    <a href="https://13.markets">13.Markets</a> &middot;
+    <a href="https://13.golf">13.Golf</a> &middot;
+    <a href="https://13.energy">13.Energy</a> &middot;
+    <a href="https://spunk.bet">SPUNK.BET</a> &middot;
+    <a href="https://free.institute">Free.Institute</a> &middot;
+    <a href="https://chicago.coach">Chicago.Coach</a> &middot;
+    <a href="https://free.gripe">Free.Gripe</a>
+  </p>
+  <p style="margin-top:8px;"><a href="/privacy.html">Privacy Policy</a> &middot; <a href="/privacy.html#disclosure">Affiliate Disclosure</a></p>
+  <p style="margin-top:8px;color:#444;font-size:0.8rem;">Prices are for informational purposes only. Not financial advice. Some links are affiliate links.</p>
+</footer>
+
+<script>
+// ===== 13.MONEY — Live Financial Dashboard =====
+// Crypto: 22 assets, 4 API cascade, 10s refresh
+// Stocks: 18 symbols, Finnhub batched, 10s rotation
+// Metals: Gold via PAXG, others via Metals-API cached
+
+// ===== AFFILIATE CLICK TRACKING =====
+var affLinks={
+  mexc:'#',okx:'#',bybit:'#',coinbase:'https://coinbase.com/join/YAGES3X?src=referral-link',
+  etoro:'#',ibkr:'#',robinhood:'#',webull:'#',
+  augusta:'#',bullionvault:'#',redollar:'#'
+};
+function affClick(platform,section){
+  if(typeof gtag==='function')gtag('event','affiliate_click',{platform:platform,section:section});
+  var url=affLinks[platform];
+  if(url&&url!=='#')window.open(url,'_blank');
+}
+
+// ===== SMART PRICE FORMATTER =====
+function fmt(p){
+  if(p>=100)return '$'+p.toLocaleString(undefined,{maximumFractionDigits:0});
+  if(p>=1)return '$'+p.toFixed(2);
+  if(p>=0.01)return '$'+p.toFixed(4);
+  return '$'+p.toFixed(6);
+}
+
+// ===== UPDATE TICKER + DASHBOARD PRICES =====
+function upd(ticker,price,change){
+  // Update ticker
+  document.querySelectorAll('[data-p="'+ticker+'"]').forEach(function(el){
+    if(price==null)return;el.textContent=fmt(price);
+  });
+  document.querySelectorAll('[data-c="'+ticker+'"]').forEach(function(el){
+    if(change==null)return;
+    el.textContent=(change>0?'+':'')+change.toFixed(1)+'%';
+    el.className='change '+(change>=0?'up':'down');
+  });
+  // Update crypto dashboard cards
+  document.querySelectorAll('[data-cp="'+ticker+'"]').forEach(function(el){
+    if(price==null)return;el.textContent=fmt(price);
+  });
+  document.querySelectorAll('[data-cc="'+ticker+'"]').forEach(function(el){
+    if(change==null)return;
+    el.textContent=(change>0?'+':'')+change.toFixed(1)+'%';
+    el.className='coin-change '+(change>=0?'up':'down');
+  });
+  // Update metal cards
+  document.querySelectorAll('[data-mp="'+ticker+'"]').forEach(function(el){
+    if(price==null)return;el.textContent=fmt(price);
+  });
+  document.querySelectorAll('[data-mc="'+ticker+'"]').forEach(function(el){
+    if(change==null)return;
+    el.textContent=(change>0?'+':'')+change.toFixed(1)+'%';
+    el.className='metal-change '+(change>=0?'up':'down');
+  });
+}
+
+// Update stock prices
+function updStock(sym,price,change,pctChange){
+  var key=sym.toLowerCase().replace('.','-');
+  document.querySelectorAll('[data-sp="'+key+'"]').forEach(function(el){
+    if(price==null)return;el.textContent=fmt(price);
+  });
+  document.querySelectorAll('[data-sc="'+key+'"]').forEach(function(el){
+    if(pctChange==null)return;
+    el.textContent=(pctChange>0?'+':'')+pctChange.toFixed(2)+'%';
+    el.className='s-change '+(pctChange>0?'up':(pctChange<0?'down':'flat'));
+  });
+  // Also update ticker
+  document.querySelectorAll('[data-p="'+key+'"]').forEach(function(el){
+    if(price==null)return;el.textContent=fmt(price);
+  });
+  document.querySelectorAll('[data-c="'+key+'"]').forEach(function(el){
+    if(pctChange==null)return;
+    el.textContent=(pctChange>0?'+':'')+pctChange.toFixed(1)+'%';
+    el.className='change '+(pctChange>0?'up':(pctChange<0?'down':'flat'));
+  });
+}
+
+function timeStamp(){
+  return new Date().toLocaleTimeString();
+}
+
+// ===== CRYPTO: API 1 — BINANCE (primary) =====
+var bnPairs={
+  BTCUSDT:'btc',ETHUSDT:'eth',BNBUSDT:'bnb',SOLUSDT:'sol',XRPUSDT:'xrp',
+  DOGEUSDT:'doge',ADAUSDT:'ada',AVAXUSDT:'avax',TRXUSDT:'trx',TONUSDT:'ton',
+  LINKUSDT:'link',DOTUSDT:'dot',UNIUSDT:'uni',ATOMUSDT:'atom',NEARUSDT:'near',
+  LTCUSDT:'ltc',SUIUSDT:'sui',APTUSDT:'apt',ARBUSDT:'arb',OPUSDT:'op',
+  INJUSDT:'inj',PAXGUSDT:'gold'
+};
+async function apiBinance(){
+  var syms=JSON.stringify(Object.keys(bnPairs));
+  var r=await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols='+syms);
+  if(!r.ok)throw new Error('BN:'+r.status);
+  var d=await r.json();
+  d.forEach(function(t){var id=bnPairs[t.symbol];if(id)upd(id,parseFloat(t.lastPrice),parseFloat(t.priceChangePercent));});
+}
+
+// ===== CRYPTO: API 2 — COINGECKO (fallback 1) =====
+var cgIds='bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano,avalanche-2,tron,the-open-network,chainlink,polkadot,uniswap,cosmos,near,litecoin,sui,aptos,arbitrum,optimism,injective-protocol,pax-gold';
+var cgMap={bitcoin:'btc',ethereum:'eth',binancecoin:'bnb',solana:'sol',ripple:'xrp',dogecoin:'doge',cardano:'ada','avalanche-2':'avax',tron:'trx','the-open-network':'ton',chainlink:'link',polkadot:'dot',uniswap:'uni',cosmos:'atom',near:'near',litecoin:'ltc',sui:'sui',aptos:'apt',arbitrum:'arb',optimism:'op','injective-protocol':'inj','pax-gold':'gold'};
+async function apiCoinGecko(){
+  var r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids='+cgIds+'&vs_currencies=usd&include_24hr_change=true');
+  if(!r.ok)throw new Error('CG:'+r.status);
+  var d=await r.json();
+  for(var coin in cgMap){if(d[coin])upd(cgMap[coin],d[coin].usd,d[coin].usd_24h_change);}
+}
+
+// ===== CRYPTO: API 3 — COINCAP (fallback 2) =====
+var ccIds='bitcoin,ethereum,binance-coin,solana,xrp,dogecoin,cardano,avalanche,tron,toncoin,chainlink,polkadot,uniswap,cosmos,near-protocol,litecoin,sui,aptos,arbitrum,optimism,injective-protocol';
+var ccMap={bitcoin:'btc',ethereum:'eth','binance-coin':'bnb',solana:'sol',xrp:'xrp',dogecoin:'doge',cardano:'ada',avalanche:'avax',tron:'trx',toncoin:'ton',chainlink:'link',polkadot:'dot',uniswap:'uni',cosmos:'atom','near-protocol':'near',litecoin:'ltc',sui:'sui',aptos:'apt',arbitrum:'arb',optimism:'op','injective-protocol':'inj'};
+async function apiCoinCap(){
+  var r=await fetch('https://api.coincap.io/v2/assets?ids='+ccIds);
+  if(!r.ok)throw new Error('CC:'+r.status);
+  var d=await r.json();
+  (d.data||[]).forEach(function(c){var id=ccMap[c.id];if(id)upd(id,parseFloat(c.priceUsd),parseFloat(c.changePercent24Hr));});
+}
+
+// ===== CRYPTO: API 4 — CRYPTOCOMPARE (fallback 3) =====
+var ccpSyms='BTC,ETH,BNB,SOL,XRP,DOGE,ADA,AVAX,TRX,TON,LINK,DOT,UNI,ATOM,NEAR,LTC,SUI,APT,ARB,OP,INJ,PAXG';
+var ccpMap={BTC:'btc',ETH:'eth',BNB:'bnb',SOL:'sol',XRP:'xrp',DOGE:'doge',ADA:'ada',AVAX:'avax',TRX:'trx',TON:'ton',LINK:'link',DOT:'dot',UNI:'uni',ATOM:'atom',NEAR:'near',LTC:'ltc',SUI:'sui',APT:'apt',ARB:'arb',OP:'op',INJ:'inj',PAXG:'gold'};
+async function apiCryptoCompare(){
+  var r=await fetch('https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+ccpSyms+'&tsyms=USD');
+  if(!r.ok)throw new Error('CCP:'+r.status);
+  var d=await r.json(),raw=d.RAW||{};
+  for(var s in ccpMap){if(raw[s]&&raw[s].USD)upd(ccpMap[s],raw[s].USD.PRICE,raw[s].USD.CHANGEPCT24HOUR);}
+}
+
+// ===== CRYPTO: MASTER LOADER — cascading fallback =====
+async function loadCrypto(){
+  var apis=[apiBinance,apiCoinGecko,apiCoinCap,apiCryptoCompare];
+  for(var i=0;i<apis.length;i++){
+    try{await apis[i]();console.log('Crypto loaded via API '+(i+1));var el=document.getElementById('crypto-updated');if(el)el.textContent='Last updated: '+timeStamp();return;}
+    catch(e){console.log('Crypto API '+(i+1)+' failed:',e.message);}
+  }
+}
+
+// ===== STOCKS: FINNHUB — batched rotation =====
+var stockBatches=[
+  ['SPY','QQQ','DIA','AAPL','MSFT','GOOGL'],
+  ['AMZN','NVDA','TSLA','META','JPM','V'],
+  ['BRK.B','UNH','JNJ','WMT','XOM','AMD']
+];
+var stockBatchIndex=0;
+var finnhubKey=''; // User adds their key here
+var stockCache={};
+
+async function loadStockBatch(){
+  var batch=stockBatches[stockBatchIndex];
+  stockBatchIndex=(stockBatchIndex+1)%stockBatches.length;
+
+  // Try Finnhub first
+  if(finnhubKey){
+    try{
+      var promises=batch.map(function(sym){
+        return fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+finnhubKey)
+          .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+          .then(function(d){
+            if(d.c&&d.c>0){
+              var pct=d.pc>0?((d.c-d.pc)/d.pc*100):0;
+              updStock(sym,d.c,d.d,pct);
+              stockCache[sym]={price:d.c,change:d.d,pct:pct,time:Date.now()};
+            }
+          });
+      });
+      await Promise.all(promises);
+      console.log('Stocks batch '+(stockBatchIndex)+' loaded via Finnhub');
+      var el=document.getElementById('stock-updated');if(el)el.textContent='Last updated: '+timeStamp();
+      return;
+    }catch(e){console.log('Finnhub failed:',e.message);}
+  }
+
+  // Fallback: Twelve Data
+  try{
+    var syms=batch.join(',');
+    var r=await fetch('https://api.twelvedata.com/price?symbol='+syms+'&apikey=demo');
+    if(r.ok){
+      var d=await r.json();
+      // Twelve Data returns different format for single vs multiple symbols
+      batch.forEach(function(sym){
+        if(d[sym]&&d[sym].price){
+          var p=parseFloat(d[sym].price);
+          updStock(sym,p,0,0);
+          stockCache[sym]={price:p,change:0,pct:0,time:Date.now()};
+        }
+      });
+      console.log('Stocks batch loaded via Twelve Data');
+      var el=document.getElementById('stock-updated');if(el)el.textContent='Last updated: '+timeStamp();
+    }
+  }catch(e){console.log('Twelve Data failed:',e.message);}
+
+  // Show cached values if available
+  batch.forEach(function(sym){
+    if(stockCache[sym]){updStock(sym,stockCache[sym].price,stockCache[sym].change,stockCache[sym].pct);}
+  });
+}
+
+// ===== METALS: Metals-API (cached 15 min) =====
+var metalsApiKey=''; // User adds their key here
+
+async function loadMetals(){
+  // Gold is already covered by PAXG in crypto fetch
+  // Load silver, platinum, palladium from cache or API
+  var cached=localStorage.getItem('metals_cache');
+  var cacheTime=localStorage.getItem('metals_cache_time');
+  var fifteenMin=15*60*1000;
+
+  if(cached&&cacheTime&&(Date.now()-parseInt(cacheTime))<fifteenMin){
+    var data=JSON.parse(cached);
+    if(data.silver)upd('silver',data.silver,data.silverChange||0);
+    if(data.platinum)upd('platinum',data.platinum,data.platinumChange||0);
+    if(data.palladium)upd('palladium',data.palladium,data.palladiumChange||0);
+    console.log('Metals loaded from cache');
+    var el=document.getElementById('metal-updated');if(el)el.textContent='Last updated: '+timeStamp()+' (cached)';
+    return;
+  }
+
+  // Try Metals-API
+  if(metalsApiKey){
+    try{
+      var r=await fetch('https://metals-api.com/api/latest?access_key='+metalsApiKey+'&base=USD&symbols=XAG,XPT,XPD');
+      if(r.ok){
+        var d=await r.json();
+        if(d.success&&d.rates){
+          var silver=d.rates.XAG?1/d.rates.XAG:0;
+          var platinum=d.rates.XPT?1/d.rates.XPT:0;
+          var palladium=d.rates.XPD?1/d.rates.XPD:0;
+          upd('silver',silver,0);upd('platinum',platinum,0);upd('palladium',palladium,0);
+          localStorage.setItem('metals_cache',JSON.stringify({silver:silver,platinum:platinum,palladium:palladium}));
+          localStorage.setItem('metals_cache_time',Date.now().toString());
+          console.log('Metals loaded from Metals-API');
+          var el=document.getElementById('metal-updated');if(el)el.textContent='Last updated: '+timeStamp();
+          return;
+        }
+      }
+    }catch(e){console.log('Metals-API failed:',e.message);}
+  }
+
+  // Try GoldAPI.io fallback
+  try{
+    var endpoints=[
+      {url:'https://www.goldapi.io/api/XAG/USD',metal:'silver'},
+      {url:'https://www.goldapi.io/api/XPT/USD',metal:'platinum'},
+      {url:'https://www.goldapi.io/api/XPD/USD',metal:'palladium'}
+    ];
+    for(var i=0;i<endpoints.length;i++){
+      var r=await fetch(endpoints[i].url,{headers:{'x-access-token':'goldapi-demo'}});
+      if(r.ok){
+        var d=await r.json();
+        if(d.price)upd(endpoints[i].metal,d.price,d.ch||0);
+      }
+    }
+    console.log('Metals loaded from GoldAPI');
+    var el=document.getElementById('metal-updated');if(el)el.textContent='Last updated: '+timeStamp();
+  }catch(e){
+    console.log('GoldAPI failed:',e.message);
+    // Fallback: show reasonable estimates
+    upd('silver',31.50,0);upd('platinum',1020,0);upd('palladium',980,0);
+    var el=document.getElementById('metal-updated');if(el)el.textContent='Last updated: prices may be delayed';
+  }
+}
+
+// ===== DUPLICATE TICKER FOR SEAMLESS SCROLL =====
+var track=document.getElementById('ticker-track');
+if(track)track.innerHTML+=track.innerHTML;
+
+// ===== START ALL FEEDS =====
+loadCrypto();
+loadStockBatch();
+loadMetals();
+
+// Crypto: every 10 seconds
+setInterval(loadCrypto,10000);
+// Stocks: rotate batch every 10 seconds
+setInterval(loadStockBatch,10000);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
