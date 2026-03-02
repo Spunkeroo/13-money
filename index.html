@@ -266,7 +266,7 @@ footer a{color:#22c55e;margin:0 8px;}
 <!-- ===== STOCKS DASHBOARD ===== -->
 <section class="section" id="stocks">
   <h2 class="section-title">Stock Market</h2>
-  <p class="section-sub">Top stocks &amp; ETFs &middot; Live prices via Yahoo Finance &middot; Updates every 30s</p>
+  <p class="section-sub">Top stocks &amp; ETFs &middot; Yahoo Finance data &middot; Auto-updates every 5 min</p>
   <div style="overflow-x:auto;">
   <table class="stock-table">
     <thead>
@@ -589,157 +589,42 @@ async function loadCrypto(){
   }
 }
 
-// ===== STOCKS: Multi-API cascade with CORS proxy fallbacks =====
-// 1. Yahoo Finance via CORS proxy (no key needed, batch all 6 in one request)
-// 2. Yahoo Finance v8/chart via backup CORS proxy (individual, 6 parallel)
-// 3. Finnhub (when user adds free API key from finnhub.io)
-// 4. localStorage cache from previous session
+// ===== STOCKS: GitHub Actions generates stock-data.json every 5 min =====
+// Fetches from /stock-data.json (static file, no CORS issues, no API keys)
+// Yahoo Finance v8/chart runs server-side via GitHub Actions, writes JSON
+// Browser just fetches the static JSON — 100% reliable, zero CORS problems
 
-var allStockSyms=['SPY','QQQ','DIA','AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','META','JPM','V','BRK.B','UNH','JNJ','WMT','XOM','AMD'];
-var stockBatchIndex=0;
-var finnhubKey=''; // Optional: add free key from finnhub.io for fastest updates
-var stockCache={};
-var stockProxyIdx=0;
+var stockDataUrl='/stock-data.json';
+var lastStockFetch=0;
 
-// Load cached stock prices instantly (no "--" on page load)
-(function(){
+async function loadStockData(){
   try{
-    var c=localStorage.getItem('13money_stocks');
-    if(c){
-      stockCache=JSON.parse(c);
-      for(var sym in stockCache){
-        updStock(sym,stockCache[sym].p,stockCache[sym].c,stockCache[sym].pct);
-      }
-      var el=document.getElementById('stock-updated');
-      if(el)el.textContent='Showing cached prices...';
+    var r=await fetch(stockDataUrl+'?t='+Date.now());
+    if(!r.ok)throw new Error('Stock JSON: '+r.status);
+    var d=await r.json();
+    if(!d.stocks)throw new Error('No stock data in JSON');
+    var count=0;
+    for(var sym in d.stocks){
+      var s=d.stocks[sym];
+      updStock(sym,s.p,s.c,s.pct);
+      count++;
     }
-  }catch(e){}
-})();
-
-function yahooBatchUrl(syms){
-  return 'https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.map(function(s){return s.replace('.','-');}).join(',')+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketVolume';
-}
-function yahooChartUrl(sym){
-  return 'https://query1.finance.yahoo.com/v8/finance/chart/'+sym.replace('.','-')+'?interval=1d&range=1d';
-}
-
-var corsProxies=[
-  function(u){return 'https://corsproxy.io/?'+encodeURIComponent(u);},
-  function(u){return 'https://api.allorigins.win/raw?url='+encodeURIComponent(u);},
-  function(u){return 'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u);}
-];
-
-function saveStockCache(){
-  try{localStorage.setItem('13money_stocks',JSON.stringify(stockCache));}catch(e){}
-}
-
-// API 1: Yahoo Finance v7/quote batch (1 request for all symbols in batch)
-async function apiStockYahooBatch(batch){
-  var url=yahooBatchUrl(batch);
-  for(var p=0;p<corsProxies.length;p++){
-    var proxyFn=corsProxies[(stockProxyIdx+p)%corsProxies.length];
-    try{
-      var r=await fetch(proxyFn(url));
-      if(!r.ok)continue;
-      var d=await r.json();
-      if(!d.quoteResponse||!d.quoteResponse.result||!d.quoteResponse.result.length)continue;
-      var got=0;
-      d.quoteResponse.result.forEach(function(q){
-        var sym=q.symbol.replace('-','.');
-        if(q.regularMarketPrice){
-          updStock(sym,q.regularMarketPrice,q.regularMarketChange||0,q.regularMarketChangePercent||0);
-          stockCache[sym]={p:q.regularMarketPrice,c:q.regularMarketChange||0,pct:q.regularMarketChangePercent||0};
-          got++;
-        }
-      });
-      if(got>0){
-        stockProxyIdx=(stockProxyIdx+p)%corsProxies.length;
-        return true;
-      }
-    }catch(e){continue;}
-  }
-  return false;
-}
-
-// API 2: Yahoo Finance v8/chart individual (6 parallel requests, different proxy)
-async function apiStockYahooChart(batch){
-  for(var p=0;p<corsProxies.length;p++){
-    var proxyFn=corsProxies[(stockProxyIdx+p)%corsProxies.length];
-    try{
-      var results=await Promise.all(batch.map(function(sym){
-        return fetch(proxyFn(yahooChartUrl(sym))).then(function(r){
-          if(!r.ok)throw new Error(r.status);return r.json();
-        }).then(function(d){
-          if(!d.chart||!d.chart.result||!d.chart.result[0])return null;
-          var meta=d.chart.result[0].meta;
-          var price=meta.regularMarketPrice;
-          var prev=meta.previousClose||meta.chartPreviousClose||price;
-          var chg=price-prev;
-          var pct=prev>0?(chg/prev*100):0;
-          return{sym:sym,price:price,change:chg,pct:pct};
-        });
-      }));
-      var got=0;
-      results.forEach(function(r){
-        if(r&&r.price){
-          updStock(r.sym,r.price,r.change,r.pct);
-          stockCache[r.sym]={p:r.price,c:r.change,pct:r.pct};
-          got++;
-        }
-      });
-      if(got>0){stockProxyIdx=(stockProxyIdx+p)%corsProxies.length;return true;}
-    }catch(e){continue;}
-  }
-  return false;
-}
-
-// API 3: Finnhub (when user provides free API key)
-async function apiStockFinnhub(batch){
-  if(!finnhubKey)return false;
-  var got=0;
-  await Promise.all(batch.map(function(sym){
-    return fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+finnhubKey)
-      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(d){
-        if(d.c&&d.c>0){
-          var pct=d.pc>0?((d.c-d.pc)/d.pc*100):0;
-          updStock(sym,d.c,d.d,pct);
-          stockCache[sym]={p:d.c,c:d.d,pct:pct};
-          got++;
-        }
-      }).catch(function(){});
-  }));
-  return got>0;
-}
-
-// Master stock loader — cascading fallback
-async function loadStockBatch(){
-  var batchSize=6;
-  var start=stockBatchIndex*batchSize;
-  var batch=allStockSyms.slice(start,start+batchSize);
-  stockBatchIndex=(stockBatchIndex+1)%3;
-
-  var loaded=false;
-  // Try Yahoo batch first (1 proxied request for all 6)
-  if(!loaded){try{loaded=await apiStockYahooBatch(batch);}catch(e){}}
-  // Try Yahoo chart individual (6 proxied requests)
-  if(!loaded){try{loaded=await apiStockYahooChart(batch);}catch(e){}}
-  // Try Finnhub
-  if(!loaded){try{loaded=await apiStockFinnhub(batch);}catch(e){}}
-
-  if(loaded){
-    saveStockCache();
+    lastStockFetch=d.updated||0;
+    var age=Math.round((Date.now()/1000-lastStockFetch)/60);
+    var label=age<1?'just now':age+' min ago';
     var el=document.getElementById('stock-updated');
-    if(el)el.textContent='Last updated: '+timeStamp();
-    console.log('Stocks batch '+(stockBatchIndex)+' loaded');
-  }else{
-    // Show cached values
-    batch.forEach(function(sym){
-      if(stockCache[sym])updStock(sym,stockCache[sym].p,stockCache[sym].c,stockCache[sym].pct);
-    });
-    console.log('Stocks: using cached data');
+    if(el)el.textContent='Last updated: '+label+' (auto-refreshes every 5 min)';
+    console.log('Stocks loaded: '+count+' symbols, data age: '+label);
+  }catch(e){
+    console.log('Stock data fetch failed:',e.message);
+    var el=document.getElementById('stock-updated');
+    if(el)el.textContent='Stock data loading...';
   }
 }
+
+// Refresh stock display every 60s (re-reads same JSON, updates "X min ago" label)
+// Actual data updates every 5 min via GitHub Actions
+function loadStockBatch(){loadStockData();}
 
 // ===== METALS: Metals-API (cached 15 min) =====
 var metalsApiKey=''; // User adds their key here
@@ -817,8 +702,8 @@ loadMetals();
 
 // Crypto: every 10 seconds
 setInterval(loadCrypto,10000);
-// Stocks: rotate batch every 30 seconds (each stock updates every 90s)
-setInterval(loadStockBatch,30000);
+// Stocks: re-check JSON every 60s (data updates every 5 min via GitHub Actions)
+setInterval(loadStockBatch,60000);
 </script>
 <script src="https://spunk.codes/cross-promo.js" defer></script>
 </body>
